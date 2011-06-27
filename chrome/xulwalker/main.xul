@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+ 
+ 
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        id="main"
+        windowtype="browser:main"
+        title="main"
+        width="750" height="550"
+        screenX="10" screenY="10"
+        persist="width,height,screenX,screenY">
+
+ 
+  <script type="text/javascript" src="main.js" />
+ 
+  <statusbar>
+    <statusbarpanel id="status" label="status" crop="end" flex="1"/>
+    <progressmeter id="progress" mode="determined" value="0%" style="display: none"/>
+    <statusbarpanel id="security" label="" style="display: none"/>    
+  </statusbar>
+
+  <statusbar>
+     <statusbarpanel id="loadtime" label="loadtime" crop="end" flex="1" />
+    </statusbar>
+ 
+  <statusbar>
+     <statusbarpanel id="serverstatus" label="serverstatus" crop="end" flex="1" />
+    </statusbar>
+
+<box id="box" height="800">
+  
+</box>
+ 
+</window>

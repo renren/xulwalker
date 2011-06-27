@@ -1,0 +1,4 @@
+content xulwalker file:xulwalker/
+
+overlay chrome://xulwalker/content/startPage.xul chrome://xulwalker/content/devOverlay.xul
+
