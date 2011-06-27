@@ -1,0 +1,20 @@
+开发说明
+
+该工具检查指定网页中资源的载入情况，可以方便应用于自动化网站监控。采用跨平台的XULRunner作为执行和解释引擎，程序界面由XUL描述（类似于HTML的语言），定制行为逻辑由Javascript实现。
+
+该程序的执行流程如下：
+
+1. xulwalker根据chrome目录下的main.xul描述文件生成图形界面。程序中所有逻辑都是由main.js来控制。
+
+2. xulwalker监听在8080端口，与用户交互。当接受到一个url时，通过浏览器对象的loadURI方法载入页面。
+abrowser.webNavigation.loadURI(this.contentRead, 128, null, null, null);
+
+3. loadURI载入页面过程中各个阶段对应的事件，被设置的WebProgressListener监听到，在状态变化时记录时间戳。根据时间戳计算出的数据，包括页面开始载入的时间，完成载入的时间，资源开始载入的时间，完成载入的时间等。请求的错误信息也会被记录。
+
+主要的几个事件如下：
+当产生nsIWebProgressListener.STATE_IS_NETWORK和nsIWebProgressListener.STATE_START事件时，表示页面开始载入；
+当产生nsIWebProgressListener.STATE_IS_NETWORK和nsIWebProgressListener.STATE_STOP事件时，表示页面载入完成；
+当产生nsIWebProgressListener.STATE_IS_REQUEST和nsIWebProgressListener.STATE_START事件时，表示页面某一资源开始载入；
+当产生nsIWebProgressListener.STATE_IS_REQUEST和nsIWebProgressListener.STATE_STOP事件时，表示页面某一资源载入完成；
+
+4. 当页面载入完成后，汇总并计算所有的统计信息，通过8080端口发回到客户连接端。

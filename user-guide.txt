@@ -1,0 +1,60 @@
+用户使用说明
+
+该工具检查指定网页中不同资源的载入时间，可以方便的应用于网站页面监控中，而且具有很好的跨平台特性，可以方面的运行于Windows，Linux等不同系统平台。由于目前开发和使用环境主要是Linux平台，下面暂以Linux Ubuntu 10.04为例说明安装和使用方法。
+
+1. 安装XULRunner执行引擎
+sudo apt-get install xulrunner-1.9.2
+目前xulwalker支持xulrunner版本为1.8.x~1.9.x
+
+2. 进入程序的主目录，执行
+xulrunner-1.9.2 application.ini
+便会出现一个类似于浏览器的图形界面，监听8080端口并接受命令
+
+3. 连接到8080端口，然后输入被检查分析的页面URL
+ > telnet localhost 8080
+收到服务端的READY提示后，可以输入要访问的URL。
+之后，经过等待可以收到被检查页面资源的载入时间等信息。
+返回内容格式为：
+第一行包含页面URL，总的载入时间，页面内的请求数
+第二行是请求时间最长的资源URL及其载入时间
+第三行是所有请求的平均响应时间及其方差
+之后各行是页面内不同资源的请求次数，载入时间和状态信息
+
+一次完整的输出：
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+READY
+www.renren.com
+
+URL:http://www.renren.com/<loadtime :5918 ms><Request:31>
+MaxName:http://ad-apac.doubleclick.net/imp;v1;f;242406381;0-0;0;65262914;1|1;42588467|42606254|1;;cs=a;%3fhttp://ad.cn.doubleclick.net/dot.gif?[timestamp] MaxTime:5216 ms
+AverageTime:364.292 ms && dx = 1203118.346
+<URI:http://www.renren.com/> <try:1> <loadtime:47 ms> <STATUS:200[OK]>
+<URI:http://s.xnimg.cn/a21825/jspro/base.js> <try:1> <loadtime:14 ms> <STATUS:200[OK]>
+<URI:http://s.xnimg.cn/imgpro/logo/logo-rr-159.png?f=trunk> <try:2> <loadtime:8 ms> 
+<URI:http://a.xnimg.cn/a.gif> <try:5> <loadtime:8 ms> 
+<URI:resource://gre/res/loading-image.png> <try:1> <loadtime:73 ms> 
+<URI:http://a.xnimg.cn/imgpro/icons/new-bullet.gif> <try:1> <loadtime:24 ms> 
+<URI:http://s.xnimg.cn/imgpro/login/left-icons.png> <try:3> <loadtime:undefined ms> 
+<URI:http://a.xnimg.cn/imgpro/icons/client3.png> <try:1> <loadtime:24 ms> 
+<URI:http://s.xnimg.cn/a17473/jspro/xn.page.syshome.js> <try:1> <loadtime:33 ms> <STATUS:200[OK]>
+<URI:http://s.xnimg.cn/a12023/jspro/beacon.js> <try:1> <loadtime:1 ms> <STATUS:200[OK]>
+<URI:http://ebp.renren.com/ebpn/show?ref=http://www.renren.com/100000000061> <try:1> <loadtime:48 ms> <STATUS:200[OK]>
+<URI:http://jebe.xnimg.cn/14578/widgetbox.css> <try:1> <loadtime:41 ms> <STATUS:200[OK]>
+<URI:http://ad-apac.doubleclick.net/imp;v1;f;242406381;0-0;0;65262914;1|1;42588467|42606254|1;;cs=a;%3fhttp://ad.cn.doubleclick.net/dot.gif?[timestamp]> <try:1> <loadtime:5216 ms> 
+<URI:http://b.scorecardresearch.com/b?c1=2&c2=6934070&rn=0.3334588243592729&c7=http%3A%2F%2Fwww.renren.com%2F&c3=&c4=&c5=&c6=&c10=&c15=&c16=&c8=%E4%BA%BA%E4%BA%BA%E7%BD%91%EF%BC%8C%E4%B8%AD%E5%9B%BD%E9%A2%86%E5%85%88%E7%9A%84%E5%AE%9E%E5%90%8D%E5%88%B6SNS%E7%A4%BE%E4%BA%A4%E7%BD%91%E7%BB%9C%E3%80%82%E5%8A%A0%E5%85%A5%E4%BA%BA%E4%BA%BA%E7%BD%91%EF%BC%8C%E6%89%BE%E5%88%B0%E8%80%81%E5%90%8C%E5%AD%A6%EF%BC%8C%E7%BB%93%E8%AF%86%E6%96%B0%E6%9C%8B%E5%8F%8B%E3%80%82&c9=&cv=1.8> <try:1> <loadtime:2206 ms> 
+<URI:http://jebe.xnimg.cn/bolt/img/widget/pic/658x280.jpg> <try:1> <loadtime:147 ms> 
+<URI:http://a.xnimg.cn/imgpro/login/playtogether-v3.jpg> <try:1> <loadtime:138 ms> 
+<URI:http://s.xnimg.cn/a21799/csspro/apps/login-all.css> <try:1> <loadtime:108 ms> <STATUS:200[OK]>
+<URI:http://s.renren.com/speedstats/browser/stats.php?core=gecko&shell=&gecko=1.9217> <try:1> <loadtime:96 ms> 
+<URI:http://jebe.xnimg.cn/13734/xn.jebe.js> <try:1> <loadtime:96 ms> <STATUS:200[OK]>
+<URI:http://jebe.xnimg.cn/12904/ad_syshome.js> <try:1> <loadtime:92 ms> <STATUS:200[OK]>
+<URI:http://s.xnimg.cn/imgpro/login/login-new2.png> <try:1> <loadtime:86 ms> 
+<URI:http://jebe.xnimg.cn/20110621/14/c07fc572-caf4-4ab5-9bfd-4ca885fd598f.swf> <try:1> <loadtime:82 ms> <STATUS:200[OK]>
+<URI:http://jebe.xnimg.cn/widgetbox/main/content/23,1.3,100000000061,runtime-jebe_template.> <try:1> <loadtime:81 ms> <STATUS:200[OK]>
+<URI:resource://gre/res/broken-image.png> <try:1> <loadtime:74 ms> 
+READY
+
+Connection closed by foreign host.
+
